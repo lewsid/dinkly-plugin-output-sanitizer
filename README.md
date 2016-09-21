@@ -39,7 +39,8 @@ For example, if you may wish to output unfiltered html. To do so, you would add 
 
 Based on this example, you would then append `html_` to any variables in your controller containing html that you would like to have bypass the output sanitization:
 
-  ```php (in controlller)
+  ```php
+  //In controller:
   public function loadDisplayContent($parameters = array())
   {
     $content = new Content($this->db);
@@ -50,7 +51,8 @@ Based on this example, you would then append `html_` to any variables in your co
   }
   ```
 
-  ```html (in view)
+  ```html
+  <!-- in view -->
   <div class="html-content"><?php echo $html_content; ?></div>
   ```
 
