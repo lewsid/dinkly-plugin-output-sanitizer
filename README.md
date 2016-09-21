@@ -26,7 +26,7 @@ By default, all view variables will be sanitized. You may find the built-in rule
 
 You may also bypass the filter by passing in variable name exceptions:
 
-For example, if you may wish to output unfiltered html. To do so, you would add the following code to `classes/core/custom/Dinkly.php`:
+For example, if you wish to output unfiltered html, you would add the following code to `classes/core/custom/Dinkly.php`:
 
   ```php
   public function filterVariable($key, $value)
