@@ -27,11 +27,6 @@ class BaseOutputSanitizer extends Dinkly
 		{
 			return $this->sanitizeArray($variable_value);
 		}
-		else if($variable_value === null)
-		{
-			//Nulls just get spit back out
-			return $variable_value;
-		}
 		else
 		{
 			return $this->sanitizeScalar($variable_value); 
