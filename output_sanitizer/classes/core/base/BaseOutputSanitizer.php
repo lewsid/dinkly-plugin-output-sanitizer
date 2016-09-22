@@ -8,9 +8,9 @@ class BaseOutputSanitizer extends Dinkly
 	public function sanitizeOutput($variable_name, $variable_value)
 	{
 		//If the passed variable name matches one of the exceptions, bypass
-		if($this->variable_override_substrings != array())
+		if($this->exception_substrings != array())
 		{
-			foreach($variable_override_substrings as $substring)
+			foreach($this->exception_substrings as $substring)
 			{
 				if(stristr($variable_name, $substring))
 				{
@@ -83,7 +83,7 @@ class BaseOutputSanitizer extends Dinkly
 			}
 			else
 			{
-				$output[$key] = $this->sanitize($value);
+				$output[$key] = $this->sanitizeScalar($value);
 			}
 		}
 
@@ -98,7 +98,7 @@ class BaseOutputSanitizer extends Dinkly
 
 		foreach($variables as $name => $value)
 		{
-			$output_object->{$name} = $this->sanitizeOutput($value);
+			$output_object->{$name} = $this->sanitizeOutput($name, $value);
 		}
 
 		return $output_object;
