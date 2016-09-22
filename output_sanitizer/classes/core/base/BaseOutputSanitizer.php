@@ -14,24 +14,27 @@ class BaseOutputSanitizer extends Dinkly
 			{
 				if(stristr($variable_name, $substring))
 				{
-					return false;
+					return $variable_value;
 				}
 			}
 		}
+		
+		if(is_object($variable_value))
+		{
+			return $this->sanitizeObject($variable_value);
+		}
+		else if(is_array($variable_value))
+		{
+			return $this->sanitizeArray($variable_value);
+		}
+		else if($variable_value === null)
+		{
+			//Nulls just get spit back out
+			return $variable_value;
+		}
 		else
 		{
-			if(is_object($variable_value))
-			{
-				return $this->sanitizeObject($variable_value);
-			}
-			elseif(is_array($variable_value))
-			{
-				return $this->sanitizeArray($variable_value);
-			}
-			else
-			{
-				return $this->sanitizeScalar($variable_value); 
-			}
+			return $this->sanitizeScalar($variable_value); 
 		}
 
 		return false;
@@ -39,7 +42,7 @@ class BaseOutputSanitizer extends Dinkly
 
 	public function setExceptionSubstrings($exception_array)
 	{
-		$this->exception_substrings = $exception_substrings;
+		$this->exception_substrings = $exception_array;
 	}
 
 	protected function sanitizeScalar($value)
